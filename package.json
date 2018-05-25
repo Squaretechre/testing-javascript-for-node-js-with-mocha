@@ -1,0 +1,22 @@
+{
+  "name": "testing-javascript-for-node-js-with-mocha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha './test/**/*.spec.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Squaretechre/testing-javascript-for-node-js-with-mocha.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Squaretechre/testing-javascript-for-node-js-with-mocha/issues"
+  },
+  "homepage": "https://github.com/Squaretechre/testing-javascript-for-node-js-with-mocha#readme",
+  "dependencies": {
+    "mocha": "5.2.0"
+  }
+}
