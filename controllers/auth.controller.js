@@ -1,12 +1,20 @@
 function AuthController() {
 
   var roles;
+  var user;
   function setRoles(role) {
     roles = role;
+    user.roles = role;
   }
 
-  function isAuthorized(neededRole){
-    return roles.indexOf(neededRole) >= 0;
+  function setUser(inUser) {
+    user = inUser;
+  }
+
+  function isAuthorized(neededRole) {
+    if (user) {
+      return user.isAuthorized(neededRole);
+    }
   }
 
   function isAuthorizedAsync(neededRole, cb) {
@@ -22,11 +30,24 @@ function AuthController() {
       }, 0)
     })
   }
+
+  function getIndex(req, res) {
+    try {
+      if(req.user.isAuthorized('admin')) {
+        return res.render('index');
+      }
+      res.render('notAuth');
+    } catch (e) {
+      res.render('error')
+    }
+  }
   return {
     isAuthorized,
     isAuthorizedAsync,
     setRoles,
-    isAuthorizedPromise
+    setUser,
+    isAuthorizedPromise,
+    getIndex,
   };
 }
 
