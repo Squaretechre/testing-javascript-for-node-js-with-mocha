@@ -1,5 +1,14 @@
 var assert = require('assert')
 var authController = require('../../controllers/auth.controller');
+var expect = require('chai').expect;
+
+// Should adds itself to Object.prototype
+// Will be available on all objects even without require statement
+var should = require('chai').should();
+var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+chai.should();
 
 // There is an implied describe block around all tests
 beforeEach (function beforeEachGlobal() {
@@ -19,11 +28,13 @@ describe('AuthController', function() {
   // Can use describe.skip / it.skip / this.skip to omit specific tests
   describe('isAuthorized', function() {
     it('Should return false if not authorized', function() {
-      assert.equal(false, authController.isAuthorized('admin'));
+      var isAuth = authController.isAuthorized('admin');
+      expect(isAuth).to.be.false;
     })
-    it('Should return false if not authorized', function() {
+    it('Should return true if authorized', function() {
       authController.setRoles(['user', 'admin']);
-      assert.equal(true, authController.isAuthorized('admin'));
+      var isAuth = authController.isAuthorized('admin');
+      isAuth.should.be.true;
     })
 
     // Can stub out tests are classed as 'pending'
@@ -42,6 +53,12 @@ describe('AuthController', function() {
         assert.equal(false, isAuth);
         done();
       });
+    })
+  })
+
+  describe('isAuthorizedPromise', function() {
+    it('Should return false if not authorized', function() {
+      return authController.isAuthorizedPromise('admin').should.eventually.be.false;
     })
   })
 });
