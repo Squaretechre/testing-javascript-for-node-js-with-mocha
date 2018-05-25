@@ -1,5 +1,5 @@
 var assert = require('assert')
-var authController = require('../../controllers/auth.controller');
+var authController = require('../../controllers/authController');
 var expect = require('chai').expect;
 
 // Should adds itself to Object.prototype
